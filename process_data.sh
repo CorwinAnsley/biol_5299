@@ -18,8 +18,8 @@
 
 
 ############# CODE #############
-raw_data=../pathogenPolyomicsData
-data=./data
+raw_data=/mnt/data/project0026/student_data/2266643a/pathogenPolyomicsData
+data=/mnt/data/project0026/student_data/2266643a/biol_5299/data
 outputs=./outputs
 fastqc_output=$outputs/fastqc
 reference=./data/reference/reference
