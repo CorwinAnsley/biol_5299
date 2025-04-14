@@ -25,16 +25,11 @@ fastqc_output=$outputs/fastqc
 reference=./data/reference/reference
 
 # Index the reference genome
-bowtie2-build ${data}/Reference/TriTrypDB-25_LmexicanaMHOMGT2001U1103.fa $reference
+bowtie2-build ${raw_data}/Reference/TriTrypDB-25_LmexicanaMHOMGT2001U1103.fa $reference
 
 for sample in LmexWT LmexAmpB 
 
 do
-    sam="${data}/${sample}.sam"  # path to write/read bowtie2 SAM file
-    bam="${data}/${sample}.bam"  # path to write/read  samtools-converted BAM file 
-    sorted_bam="${data}/${sample}.sort.bam"	 # path to write/read  samtools-sorted BAM file
-    bai="${data}/${sample}.bai"
-
     for pair in 1 2
     do
         # Define filepaths
@@ -44,11 +39,19 @@ do
         fastqc -o $fastqc_output --svg  -f fastq $fastq
     done
 
+    trimmed_reads_pair1=${data}/${sample}_val_1.fq.gz
+    trimmed_reads_pair2=${data}/${sample}_val_2.fq.gz
+
+    sam="${data}/${sample}.sam"  # path to write/read bowtie2 SAM file
+    bam="${data}/${sample}.bam"  # path to write/read  samtools-converted BAM file 
+    sorted_bam="${data}/${sample}.sort.bam"	 # path to write/read  samtools-sorted BAM file
+    bai="${data}/${sample}.bai"
+
     # Carry out trimming
     trim_galore --phred64 --illumina --paired -q 20 -o ${data}/ --basename $sample fastq="${raw_data}/DNAseq/${sample}_1.fastq.gz" fastq="${raw_data}/DNAseq/${sample}_2.fastq.gz"
 
     # Carry out alignment to reference with bowtie2
-    bowtie2 --phred64  -x $reference -1 ${sample}_val_1.fq.gz -2 ${sample}_val_1.fq.gz -S $sam
+    bowtie2 --phred64  -x $reference -1 $trimmed_reads_pair1 -2 $trimmed_reads_pair2 -S $sam
 
     # Convert sam to bam with samtools
     samtools view -b -o ${bam} ${sam}
