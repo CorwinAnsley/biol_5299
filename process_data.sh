@@ -25,7 +25,7 @@ fastqc_output=$outputs/fastqc
 reference=./data/reference/reference
 
 # Index the reference genome
-bowtie2-build ${raw_data}/Reference/TriTrypDB-25_LmexicanaMHOMGT2001U1103.fa $reference
+bowtie2-build -q ${raw_data}/Reference/TriTrypDB-25_LmexicanaMHOMGT2001U1103.fa $reference
 
 for sample in LmexWT LmexAmpB 
 
@@ -36,7 +36,7 @@ do
         fastq="${raw_data}/DNAseq/${sample}_${pair}.fastq.gz"
 
         # Generate fastqc report
-        fastqc -o $fastqc_output --svg  -f fastq $fastq
+        fastqc -q -o $fastqc_output --svg  -f fastq $fastq
     done
 
     trimmed_reads_pair1=${data}/${sample}_val_1.fq.gz
@@ -48,7 +48,7 @@ do
     bai="${data}/${sample}.bai"
 
     # Carry out trimming
-    trim_galore --phred64 --illumina --paired -q 20 -o ${data}/ --basename $sample fastq="${raw_data}/DNAseq/${sample}_1.fastq.gz" fastq="${raw_data}/DNAseq/${sample}_2.fastq.gz"
+    trim_galore --phred64 --illumina --paired -q 20 -o ${data}/ --basename $sample ${raw_data}/DNAseq/${sample}_1.fastq.gz ${raw_data}/DNAseq/${sample}_2.fastq.gz
 
     # Carry out alignment to reference with bowtie2
     bowtie2 --phred64  -x $reference -1 $trimmed_reads_pair1 -2 $trimmed_reads_pair2 -S $sam
