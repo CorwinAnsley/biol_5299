@@ -25,7 +25,7 @@ data=/mnt/data/project0026/student_data/2266643a/biol_5299/data
 wt_sorted_bam="${raw_data}/alignments/LmexWT.bam"	 # path to write/read  samtools-sorted BAM file
 ampb_sorted_bam="${raw_data}/alignments/LmexAmpB.bam"	 # path to write/read  samtools-sorted BAM file
 vcf=${data}/Lmex_variants_1.vcf
-reference=${raw_data}/Reference/TriTrypDB-25_LmexicanaMHOMGT2001U1103.fa.fai
+reference=${raw_data}/Reference/TriTrypDB-25_LmexicanaMHOMGT2001U1103.fa
 
 bamaddrg -b $wt_sorted_bam -s WT -b $ampb_sorted_bam -s AmpB | freebayes --fasta-reference $reference --vcf $vcf --ploidy 4 --stdin
 
