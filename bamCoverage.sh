@@ -29,7 +29,7 @@ for sample in LmexAmpB LmexWT
 do
  
 
-    sorted_bam="${data}/${sample}.sort.bam"	 # path to write/read  samtools-sorted BAM file
+    sorted_bam="${data}/${sample}.bam"	 # path to write/read  samtools-sorted BAM file
     coverage_file="${data}/${sample}_coverage.bw"
 
     bamCoverage -b $sorted_bam -o $coverage_file
