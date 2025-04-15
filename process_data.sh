@@ -5,7 +5,7 @@
 #SBATCH --account=project0026 # the project account - don't change this
 #SBATCH --job-name=process_data # give your job a name!
 #SBATCH --partition=nodes # we are using CPU nodes - don't change this
-#SBATCH --time=0-04:00:00 # how long do we expect this job to run?
+#SBATCH --time=0-20:00:00 # how long do we expect this job to run?
 #SBATCH --mem=4G # how much memory do we want?
 #SBATCH --nodes=1 # how many nodes do we want?
 #SBATCH --ntasks=1 # how many tasks are we submitting?
@@ -25,9 +25,9 @@ fastqc_output=$outputs/fastqc
 reference=./data/reference/reference
 
 # Index the reference genome
-bowtie2-build -q ${raw_data}/Reference/TriTrypDB-25_LmexicanaMHOMGT2001U1103.fa $reference
+#bowtie2-build -q ${raw_data}/Reference/TriTrypDB-25_LmexicanaMHOMGT2001U1103.fa $reference
 
-for sample in LmexWT LmexAmpB 
+for sample in LmexAmpB #LmexWT
 
 do
     for pair in 1 2
@@ -48,7 +48,7 @@ do
     bai="${data}/${sample}.bai"
 
     # Carry out trimming
-    trim_galore --phred64 --illumina --paired -q 20 -o ${data}/ --basename $sample ${raw_data}/DNAseq/${sample}_1.fastq.gz ${raw_data}/DNAseq/${sample}_2.fastq.gz
+    #trim_galore --phred64 --illumina --paired -q 20 -o ${data}/ --basename $sample ${raw_data}/DNAseq/${sample}_1.fastq.gz ${raw_data}/DNAseq/${sample}_2.fastq.gz
 
     # Carry out alignment to reference with bowtie2
     bowtie2 --phred64  -x $reference -1 $trimmed_reads_pair1 -2 $trimmed_reads_pair2 -S $sam
@@ -61,6 +61,11 @@ do
 
     # Index alignment file with samtools
     samtools index --bai -o $bai $sorted_bam
+
+    rm $sam
+    rm $bam
+    rm $trimmed_reads_pair1
+    rm $trimmed_reads_pair2
 
 done 
 
