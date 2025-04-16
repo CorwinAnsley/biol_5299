@@ -34,6 +34,9 @@ for sample in AmpB WT
     bcftools view --min-alle 2 -s $sample -o $sample_vcf $filtered_vcf
     done
 
+bcftools isec ${data}/AmpBLmex_variants.vcf ${data}/AmpBLmex_variants.vcf -p ${data}/Comps_
+
+
 
 
 
