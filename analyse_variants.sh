@@ -29,7 +29,7 @@ reference=${raw_data}/Reference/TriTrypDB-25_LmexicanaMHOMGT2001U1103.fa
 vcffilter -f "QUAL > 20 " -f "TYPE = snp" $vcf > $filtered_vcf
 
 for sample in AmpB WT
-    sample_vcf=${data}/${sample}Lmex_variants.vcf 
+    sample_vcf="${data}/${sample}Lmex_variants.vcf"
     bcftools view --min-alle 2 -s $sample -o $sample_vcf $filtered_vcf
 
 
