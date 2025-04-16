@@ -25,6 +25,7 @@ data=/mnt/data/project0026/student_data/2266643a/biol_5299/data
 vcf=${data}/Lmex_variants_2.vcf
 filtered_vcf=${data}/filtered_Lmex_variants.vcf
 reference=${raw_data}/Reference/TriTrypDB-25_LmexicanaMHOMGT2001U1103.fa
+annotated_vcf=${data}/filtered_Lmex_variants.vcf
 
 vcffilter -f "QUAL > 20 " -f "TYPE = snp" $vcf > $filtered_vcf
 
@@ -39,9 +40,9 @@ for sample in AmpB WT
 
 bcftools isec ${data}/AmpBLmex_variants.vcf.gz ${data}/WTLmex_variants.vcf.gz -p ${data}/Comps_
 
-snpEff build -c SnpEff.config -gff3 -noCheckCds -noCheckProtein -v Lmex
+#snpEff build -c SnpEff.config -gff3 -noCheckCds -noCheckProtein -v Lmex
 
-snpEff -Xmx4g -no-intron 
+#snpEff -Xmx4g -no-intron 
 
 
 
