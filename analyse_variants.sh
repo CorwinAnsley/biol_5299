@@ -31,7 +31,7 @@ vcffilter -f "QUAL > 20 " -f "TYPE = snp" $vcf > $filtered_vcf
 for sample in AmpB WT
     do
     sample_vcf="${data}/${sample}Lmex_variants.vcf.gz"
-    bcftools view -l 2 --min-alle 2 -s $sample -o $sample_vcf $filtered_vcf
+    bcftools view -l 2 -c 1 -s $sample -o $sample_vcf $filtered_vcf
 
     bcftools index $sample_vcf
 
@@ -41,7 +41,7 @@ bcftools isec ${data}/AmpBLmex_variants.vcf.gz ${data}/WTLmex_variants.vcf.gz -p
 
 snpEff build -c SnpEff.config -gff3 -noCheckCds -noCheckProtein -v Lmex
 
-snpEff -Xmx4g -no-intron <options>
+snpEff -Xmx4g -no-intron 
 
 
 
