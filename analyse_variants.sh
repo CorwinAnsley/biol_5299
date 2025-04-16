@@ -23,9 +23,10 @@ data=/mnt/data/project0026/student_data/2266643a/biol_5299/data
 
 
 vcf=${data}/Lmex_variants_2.vcf
+filtered_vcf=${data}/filtered_Lmex_variants.vcf
 reference=${raw_data}/Reference/TriTrypDB-25_LmexicanaMHOMGT2001U1103.fa
 
-vcffilter -f "QUAL > 20 " -f "TYPE = snp" $vcf
+vcffilter -f "QUAL > 20 " -f "TYPE = snp" $vcf > $filtered_vcf
 
 
 
