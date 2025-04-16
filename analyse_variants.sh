@@ -39,6 +39,8 @@ for sample in AmpB WT
 
 bcftools isec ${data}/AmpBLmex_variants.vcf.gz ${data}/AmpBLmex_variants.vcf.gz -p ${data}/Comps_
 
+snpEff build -c SnpEff.config -gff3 -noCheckCds -noCheckProtein -v Lmex
+
 
 
 
