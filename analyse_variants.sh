@@ -37,11 +37,11 @@ for sample in AmpB WT
 
     done
 
-bcftools isec ${data}/AmpBLmex_variants.vcf.gz ${data}/AmpBLmex_variants.vcf.gz -p ${data}/Comps_
+bcftools isec ${data}/AmpBLmex_variants.vcf.gz ${data}/WTLmex_variants.vcf.gz -p ${data}/Comps_
 
 snpEff build -c SnpEff.config -gff3 -noCheckCds -noCheckProtein -v Lmex
 
-
+snpEff -Xmx4g -no-intron <options>
 
 
 
