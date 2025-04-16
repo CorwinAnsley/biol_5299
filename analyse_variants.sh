@@ -30,11 +30,11 @@ vcffilter -f "QUAL > 20 " -f "TYPE = snp" $vcf > $filtered_vcf
 
 for sample in AmpB WT
     do
-    sample_vcf="${data}/${sample}Lmex_variants.vcf"
-    bcftools view --min-alle 2 -s $sample -o $sample_vcf $filtered_vcf
+    sample_vcf="${data}/${sample}Lmex_variants.vcf.gz"
+    bcftools view -l 2 --min-alle 2 -s $sample -o $sample_vcf $filtered_vcf
     done
 
-bcftools isec ${data}/AmpBLmex_variants.vcf ${data}/AmpBLmex_variants.vcf -p ${data}/Comps_
+bcftools isec ${data}/AmpBLmex_variants.vcf.gz ${data}/AmpBLmex_variants.vcf.gz -p ${data}/Comps_
 
 
 
