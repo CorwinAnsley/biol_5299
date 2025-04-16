@@ -42,7 +42,8 @@ bcftools isec ${data}/AmpBLmex_variants.vcf.gz ${data}/WTLmex_variants.vcf.gz -p
 
 snpEff build -c SnpEff.config -gff3 -noCheckCds -noCheckProtein -v Lmex
 
-snpEff -Xmx4g -no-intron ${data}/Comps_/0000.vcf >
+snpEff -Xmx4g -no-intron ${data}/Comps_/0000.vcf > $annotated_vcf  
+
 
 
 
